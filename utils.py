@@ -178,7 +178,7 @@ def dl_model_inference(train_df,test_df,max_features,maxlen,dl_model_path):
     file = zipfile.ZipFile(io.BytesIO(request.content))
     file.extractall(os.getcwd())
 
-    model_dl = load_model(os.getcwd() + '\\chata_cnn_model.h5')
+    model_dl = load_model(os.getcwd() + '\\chata_cnn_weights.hdf5')
     dl_model_pred = model_dl.predict(X_test)
     return X_test,dl_model_pred,model_dl
 

@@ -61,7 +61,7 @@ model.add(Conv1D(128, 5, activation='relu'))
 model.add(GlobalMaxPooling1D())
 model.add(Dense(5, activation='sigmoid'))
 
-earlystop = EarlyStopping(monitor = 'val_loss', min_delta = 0, patience = 5)
+earlystop = EarlyStopping(monitor = 'val_loss', min_delta = 0, patience = 3)
 checkpoint = ModelCheckpoint(monitor = 'val_loss', save_best_only = True, filepath = 'chata_cnn_weights.hdf5')
 model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
 

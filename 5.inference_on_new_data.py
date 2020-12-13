@@ -7,7 +7,7 @@ from utils import *
 train_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/sentiment_dataset_train.csv'
 holdout_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/sentiment_dataset_test.csv'
 
-dl_model_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/chata_cnn_model.zip'
+dl_model_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/chata_cnn_weights.zip'
 
 spell_check_path_url = 'https://haptik-website-images.haptik.ai/spello_models/en.pkl.zip'
 
