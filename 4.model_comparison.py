@@ -1,17 +1,16 @@
 # %%
-%run 0.utils.py
+from utils import *
 
 # %%
 ## define data path for dev and holdout data
-train_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\data\data\sentiment_dataset_train.csv'
-dev_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\data\data\sentiment_dataset_dev.csv'
-holdout_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\data\data\sentiment_dataset_test.csv'
+train_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/sentiment_dataset_train.csv'
+dev_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/sentiment_dataset_dev.csv'
+holdout_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/sentiment_dataset_test.csv'
 
-baseline_model_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\baseline_nlp_model.pkl'
-dl_model_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\final\chata_cnn_weights.hdf5'
+baseline_model_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/baseline_nlp_model.pkl'
+dl_model_path = 'https://raw.githubusercontent.com/JackZhang0224/Chata_AI_Assignment/main/chata_cnn_weights.zip'
 
-spell_check_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\en.pkl\en.pkl'
-
+spell_check_path_url = 'https://haptik-website-images.haptik.ai/spello_models/en.pkl.zip'
 
 max_features = 35000
 maxlen = 2000
@@ -22,14 +21,16 @@ maxlen = 2000
 
 train_df0 = pd.read_csv(train_path)
 ## transform traning data 
-train_df = preprocessing(train_df0,spell_check_path)
+train_df = preprocessing(train_df0,spell_check_path_url)
 
 dev_df0 = pd.read_csv(dev_path)
-dev_df = preprocessing(dev_df0,spell_check_path)
+dev_df = preprocessing(dev_df0,spell_check_path_url)
 
 # %%
 # load model for baseline and generate prediction for dev dataset
-model_nlp = load(open(baseline_model_path, 'rb'))
+import urllib.request 
+model_nlp = load(urllib.request.urlopen(baseline_model_path))
+
 dev_pred_nlp = model_nlp.predict(dev_df['review'])
 print(classification_report(dev_df['rating'], dev_pred_nlp))
 
@@ -38,8 +39,7 @@ print(classification_report(dev_df['rating'], dev_pred_nlp))
 
 # %%
 
-x_dev,dev_pred_dl,model_dl = dl_model_inference(train_df,dev_df)
-
+x_dev,dev_pred_dl,model_dl = dl_model_inference(train_df,dev_df,max_features,maxlen,dl_model_path)
 
 # %%
 
@@ -65,5 +65,5 @@ print(classification_report(dev_df['rating'].astype(int), predict_class+1))
 
 
 dev_df_final = dev_df.copy()
-dev_df_fianl['pred_NLP'] =dev_pred_nlp
+dev_df_final['pred_NLP'] =dev_pred_nlp
 dev_df_final['pred_dl'] = predict_class+1

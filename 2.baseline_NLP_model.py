@@ -1,7 +1,11 @@
 # %%
+
+from utils import *
+
+# %%
 ## define parameters
 
-model_nlp_path = r'C:\Users\jackzhang\OneDrive - Intelius AI\Desktop\personal\previous_work_project\chata\baseline_nlp_model.pkl'
+model_nlp_path = os.getcwd() + '/baseline_nlp_model.pkl'
 
 
 # %%

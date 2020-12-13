@@ -1,6 +1,5 @@
 # %%
-
-%run 0.utils.py
+from utils import *
 # %%
 ## transform target variables into matrix
 
@@ -73,8 +72,6 @@ history = model.fit(X_train, y_train,
                     batch_size=128,
                     callbacks=[earlystop, checkpoint])
 
-model.save('chata_cnn_model.h5')
-
 
 # %%
 ## model evaluation on train/val dataset
@@ -83,6 +80,8 @@ loss, accuracy = model.evaluate(X_train,y_train, verbose=False)
 print("Training Accuracy: {:.4f}".format(accuracy))
 loss, accuracy = model.evaluate(X_test, y_test, verbose=False)
 print("Validation Accuracy:  {:.4f}".format(accuracy))
+
+## training and validation dataset accurary is around 90%
 
 # %%
 ## look at tain/validation accuracy and loss graph
